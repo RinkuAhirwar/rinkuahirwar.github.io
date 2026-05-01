@@ -1,250 +1,467 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>RinkuAhirwar</title>
-                <link rel="icon" type="image/png" href="2.jpeg">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rinku Ahirwar</title>
+  <meta name="description" content="Rinku Ahirwar — Software Engineer 2 at MAQ Software. Power BI, PySpark, Azure Synapse &amp; Microsoft Fabric portfolio." />
+  <meta name="theme-color" content="#1a0e1c" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Background -->
+  <div class="noise"></div>
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="aurora aurora-3"></div>
+  <canvas class="constellation" id="constellation" aria-hidden="true"></canvas>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-        <link  rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Custom cursor -->
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"><span class="cursor-label" id="cursorLabel"></span></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-    </head>
-    <body bgcolor="#000000">
-        <section id="navbar_">
-        <nav class=" navi block navbar navbar-expand-lg navbar-dark " style="display:block;">
-            
-            <a class="navbar-brand logo" href="index.html"  >RINKU AHIRWAR</a>
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-logo">RA</div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+      <div class="loader-status" id="loaderStatus">Binding the spine…</div>
+    </div>
+  </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              
+  <!-- Magazine UI Frame -->
+  <header class="frame-top">
+    <div class="brand">
+      <span class="brand-mark">◊</span>
+      <span class="brand-text">Rinku Ahirwar</span>
 
-            <div class="collapse navbar-collapse"  id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                <li class="nav-item  ">
-                    <a class="nav-link home_logo" href="index.html" >Home</a></li>
-                <li class="nav-item ">
-                    <a class="nav-link experience_logo" href="#experience_">Experience</a></li>
-                <li class="nav-item ">
-                    <a class='nav-link project_logo' href='#project_'>Project</a></li>
-                <li class="nav-item  ">
-                    <a class='nav-link skills_logo' href='#skills_'>Skills</a></li>
-                <li class="nav-item ">
-                    <a class='nav-link contact_logo' href='#contact_'>Contact</a></li>
-            </ul>
+    </div>
+
+  
+  </header>
+
+  <!-- Page indicator -->
+  <div class="page-indicator">
+    <span class="page-current" id="pageCurrent">01</span>
+    <span class="page-divider"></span>
+    <span class="page-total" id="pageTotal">06</span>
+  </div>
+
+  <!-- Vertical chapter labels (left side) -->
+  <aside class="chapter-rail">
+    <div class="chapter-label" id="chapterLabel">The Cover</div>
+    <div class="chapter-line"></div>
+  </aside>
+
+  <!-- Main horizontal deck -->
+  <main class="deck" id="deck">
+    <!-- =========  PANEL 01 · COVER  ========= -->
+    <section class="panel panel-cover" data-chapter="The Cover" data-page="01">
+      <div class="cover-grid">
+        <div class="cover-left">
+
+          <div class="cover-author cover-typewriter" aria-label="Rinku Ahirwar — Software Engineer 2 at MAQ Software">
+            <span class="type-text" id="typeText"></span><span class="type-caret" aria-hidden="true"></span>
+          </div>
+
+          <div class="cover-stack">
+            <span class="chip">C++</span>
+            <span class="chip">PySpark</span>
+            <span class="chip">SQL</span>
+            <span class="chip">DAX</span>
+            <span class="chip">Power BI</span>
+            <span class="chip">Microsoft Fabric</span>
+            <span class="chip">Azure Synapse</span>
+            <span class="chip">ADLS</span>
+            <span class="chip">Azure OpenAI</span>
+            <span class="chip">Tabular Editor</span>
+          </div>
         </div>
-        
-    
-        </nav>
-        </section>
 
-        <section id="home_">
-        <div class="home" style="margin-top:80px;">
-            
-            <img class="profile_photo" src="2.jpeg">
-    
-            <div class="home_text">
-                    <p class="name">RINKU AHIRWAR</p>
-                    <P class="content" style="padding-left: 100px; padding-top: 390px;"> Data  Analyst<br>
-                        Machine Learning Enthusiast <br>
-                        Creative Thinker <br>
-                        Designer<br>
-                        Public Speaker<br>
-                        Sports man<br>
-                        Student       <br>                                                                      
-                        Learner 
-
-                        <a href="https://www.linkedin.com/in/rinkuahirwar/" style="padding-left:280px;" >
-                            
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  class="bi bi-linkedin" viewBox="0 0 16 16">
-                                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-                              </svg>
-                              </a>&nbsp;
-                              <a href="https://github.com/RinkuAhirwar" >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  class="bi bi-github" viewBox="0 0 16 16">
-                                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                                  </svg>
-                                  </a>
-                               
-                    </P>
-                    
-            
+        <div class="cover-right">
+          <div class="portrait-stack">
+            <div class="portrait-bg-shape"></div>
+            <div class="portrait-card">
+              <div class="portrait-slides" id="portraitSlides">
+                <img class="slide is-active" src="assets/images/portrait_4.jpg" alt="Rinku Ahirwar — portrait 1" loading="eager" />
+                <img class="slide" src="assets/images/portrait_2.jpg" alt="Rinku Ahirwar — portrait 2" loading="lazy" />
+                <img class="slide" src="assets/images/portrait_1.jpg" alt="Rinku Ahirwar — portrait 3" loading="lazy" onerror="this.onerror=null;this.src='assets/images/portrait_1.jpg'" />
+                <img class="slide" src="assets/images/portrait_3.jpg" alt="Rinku Ahirwar — portrait 3" loading="lazy" onerror="this.onerror=null;this.src='assets/images/portrait_1.jpg'" />
+              </div>
             </div>
+            <div class="portrait-tag">
+              <span class="tag-dot"></span>
+              <svg class="tag-flag" viewBox="0 0 9 6" aria-hidden="true">
+                <rect width="9" height="2" y="0" fill="#FF9933"/>
+                <rect width="9" height="2" y="2" fill="#FFFFFF"/>
+                <rect width="9" height="2" y="4" fill="#138808"/>
+                <circle cx="4.5" cy="3" r="0.7" fill="none" stroke="#000080" stroke-width="0.12"/>
+                <circle cx="4.5" cy="3" r="0.18" fill="#000080"/>
+              </svg>
+              <span>India</span>
+            </div>
+            <div class="portrait-badge">
+              <span class="badge-num">8.1</span>
+              <span class="badge-text">CGPA · CSE<br/>NIT Jalandhar</span>
+            </div>
+            <div class="portrait-orbit">
+              <span class="orbit-item" style="--a:0deg">⚡</span>
+              <span class="orbit-item" style="--a:90deg">◈</span>
+              <span class="orbit-item" style="--a:180deg">✦</span>
+              <span class="orbit-item" style="--a:270deg">▲</span>
+            </div>
+          </div>
         </div>
-        </section>
+      </div>
+    </section>
 
-        
-            <div 
-            style="
-                width: 0;
-                height: 0;
-                border-bottom: 200px solid #ffffff;
-                border-left: 690px  solid transparent;
-                border-right: 828px solid transparent;
-              "></div>
-              
-              <section id=experience_>
-        <div class="experience">
-           
-              
-            
-              
-            <div style="display:block; position: static; padding-top: 100px;"><p class="heading"  >EXPERIENCE</p></div>
-            
-            <div class="row" style="margin-top: 100px;">
-                <div class="col-sm-6" >
-                    <img style="padding-left:220px;" src="visualization.gif">
-                </div>
-                <div class="col-sm-6">
-                    <P class="subheading" style="text-align: left; padding-top:100px;padding-bottom:20px;">Data Analyst Intern</P>
-                    <p class="subheading" style="text-align: left;">@ NIT Jalandhar</p>
-                    <div class="col-sm-6">
-                    <p class="content " style="color:white;">
-                        ● Visualized the 10 village real data set,compiled the visualization into a report.<br>
-                        ● Extracted some crucial features, trends and reported them <br>
-                          Utilized :Jupyter notebook, google slides
-                    </p>
-                    </div>
-                </div>
-            </div>
+    <!-- =========  PANEL 02 · ABOUT  ========= -->
+    <section class="panel panel-about" data-chapter="The Author" data-page="02">
+      <div class="about-grid">
+        <div class="about-left">
+          <h2 class="panel-title">A little <em>about</em> me.</h2>
 
-            <div class="row" style="margin-top: 20px;">
-                
-                <div class="col-sm-6">
-                    <P class="subheading" style="padding-left:250px; padding-top:100px;padding-bottom:20px;">Internship Coordinator</P>
-                    <p class="subheading" style="padding-left:250px;">@ NIT Jalandhar</p>
-                    
-                    <p class="content " style="color:white; padding-left:250px;">
-                        Responsible for contacting ,coordinating with companies for conducting on campus internship drives and
-collecting ,maintaining around 200+ student data.
+          <p>
+            Software Engineer at MAQ Software with hands-on experience in
+            data engineering and analytics, specializing in the Microsoft Azure
+            ecosystem. Proficient in Power BI, DAX optimization,
+            PySpark, SQL, Azure Synapse, and Microsoft Fabric.
+            Demonstrated success in improving report performance, optimizing
+            large-scale semantic models, and building scalable data processing
+            solutions.
+          </p>
 
-                    </p>
-                    
-                </div>
-                <div class="col-sm-6" >
-                    <img style=" width:500px; height:300px;" src="coordinator.png">
-                </div>
-            </div>
-            
-            <div class="row" style="margin-top: 20px;">
-                <div class="col-sm-6" >
-                    <img style=" height:250px; width:250px; padding-top:90px; margin-left: 400px;;" src="iic.png">
-                </div>
-                <div class="col-sm-6">
-                    <P class="subheading" style="text-align: left; padding-top:100px;padding-bottom:20px;">Core Member</P>
-                    <p class="subheading" style="text-align: left;">@ Institute Innovation Council </p>
-                    <div class="col-sm-6">
-                    <p class="content " style="color:white;">
-                        Plan ,build strategy ,execute ,manange ,coordinate ,organize events ,make event's to go smoothly and conver it to successful event
-                    </p>
-                    </div>
-                </div>
-            </div>
+          <p>
+            Experienced in automating workflows using Azure Logic Apps
+            and Azure OpenAI, implementing Row-Level Security, and
+            supporting enterprise cloud data platform migrations. Known for
+            strong problem-solving skills with a focus on performance,
+            scalability, and delivering measurable business impact.
+          </p>
+
+          <p>
+            My journey in data began with rebuilding a finance model in Excel for
+            my first enterprise project. Today, at MAQ Software, I optimize
+            Power BI semantic models, migrate analytics workloads from
+            Synapse to Microsoft Fabric, and integrate AI into
+            critical yet often overlooked areas such as customer support
+            operations.
+          </p>
 
 
         </div>
-        </section>
 
-        <section id="project_">
-        <div 
-        style="
-            width: 0;
-            height: 0;
-            border-bottom: 100px solid #ffffff;
-            border-left: 690px  solid transparent;
-            border-right: 828px solid transparent;
-          "></div>
-
-        
-            <div class="project">
-           
-              
-            
-              
-                <div style="display:block; position: static; padding-top: 50px;"><p class="heading" style="color:black"  >PROJECTS</p></div>
-                
-                <div class="row" style="margin-top: 100px;">
-                    <div class="col-sm-6" >
-                        <img style="padding-left:220px;" src="ml.png">
-                    </div>
-                    <div class="col-sm-6">
-                        <P class="subheading" style="text-align: left; padding-top:0px;padding-bottom:20px; color:black">Question Paper Weightage Calculator</P>
-                        <p class="subheading" style="text-align: left; color:black">ML Model</p>
-                        <div class="col-sm-6">
-                        <p class="content " style="color:rgb(0, 0, 0);">
-                            Developed a ML based analyser where users can input a question paper and the model will analyze
-                            the paper and return weightage of the questions asked from each topic. <br><br>
-                            Utilized: Python ,numpy ,pandas ,sklearn, seaborn.
-                        </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" style="margin-top: 20px;">
-                    
-                    <div class="col-sm-6">
-                        <P class="subheading" style="padding-left:250px; padding-top:100px;padding-bottom:20px; color: black;;">Spam Mail Detector</P>
-                        <p class="subheading" style="padding-left:250px; color:black">ML Model</p>
-                        
-                        <p class="content " style="color:rgb(0, 0, 0); padding-left:250px;">
-                           
-                        Built ML based detector in which user input the received mail and know whether it is ham or spam
-                        and this model has high accurassy because of the classifier used .<br><br>
-                        Utilized: Python ,numpy ,pandas ,sklearn.
-    
-                        </p>
-                        
-                    </div>
-                    <div class="col-sm-6" >
-                        <img style=" width:300px; height:200px; margin:100px;" src="spam_mail.png">
-                    </div>
-                </div>
-                
-                
-    
+        <div class="about-right">
+          <div class="skills-card">
+            <div class="skill-group">
+              <span class="skill-label">Languages</span>
+              <div class="skill-chips">
+                <span>C++</span><span>PySpark</span><span>SQL</span><span>DAX</span><span>MDX</span>
+              </div>
             </div>
-        </section>
-
-        <section id="skills_">
-            <div class="experience" style="padding-top:80px;">
-                <div style="display:block; position: static; "><p class="heading" style="color:rgb(239, 239, 239)"  >SKILLS</p></div>
-                <P  style="text-align: center; padding-bottom: 50px; ">C <br><br>  C++  python<br><br>
-                    
-                   Machine Learning<br><br> Data Visualization <br><br> SQL
-                    DSA OOPS DBMS<br><br>
-                    VS code Jupyter Notebook MySQL <br><br>Power BI
-                    Designing Public Speaking <br><br>
-                    Data Analytics HTML CSS <br><br>
-                    Management<br><br> Sports</P>
+            <div class="skill-group">
+              <span class="skill-label">Tools</span>
+              <div class="skill-chips">
+                <span>VS Code</span><span>Power BI</span><span>Microsoft Fabric</span><span>Tabular Editor</span><span>SSMS</span><span>MySQL</span><span>Excel</span>
+              </div>
             </div>
-        </section>
-
-        <section id="contact_">
-        <contact>
-            <div>
-                <div style=" margin-left:50%">
-                    <a href="https://www.linkedin.com/in/rinkuahirwar/">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  class="bi bi-linkedin" viewBox="0 0 16 16">
-                            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-                          </svg>
-                          </a>
-                          <a href="https://github.com/RinkuAhirwar">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"  class="bi bi-github" viewBox="0 0 16 16">
-                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                              </svg>
-                              </a>
-                </div>
-                <br>
-                <div>
-                 <a href="mailto:rinkuahirwar06022002@gmail.com">   <p style="text-align: center; color:rgb(0, 0, 0); background-color: rgb(255, 255, 255); text-decoration: underline; text-decoration-color: rgb(255, 255, 255);">Mail: rinkuahirwar06022002@gmail.com</p></a>
-
-                </div>
+            <div class="skill-group">
+              <span class="skill-label">Cloud &middot; Services</span>
+              <div class="skill-chips">
+                <span>Azure</span><span>Synapse Analytics</span><span>ADLS</span><span>Logic Apps</span><span>Dedicated SQL Pool</span><span>Azure Databricks</span><span>Azure OpenAI</span><span>Azure DevOps</span>
+              </div>
             </div>
-            <div style="width:auto ; text-align: center; color:white; background-color: black;">PRODULY HOME MADE © RINKU AHIRWAR</div>
-        </contact>
-        </section>
-    </body>
+            <div class="skill-group">
+              <span class="skill-label">Concepts</span>
+              <div class="skill-chips">
+                <span>DSA</span><span>OOP</span><span>DBMS</span><span>Multithreading</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-mini"><div class="stat-num is-pct" data-count="87">0</div><div class="stat-lbl">faster Power BI<br/>load times</div></div>
+            <div class="stat-mini"><div class="stat-num is-plus" data-count="60">0</div><div class="stat-lbl">finance reports<br/>rebuilt</div></div>
+            <div class="stat-mini"><div class="stat-num is-plus" data-count="2">0</div><div class="stat-lbl">yrs shipping at<br/>MAQ Software</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========  PANEL 03 · EDUCATION  ========= -->
+    <section class="panel panel-edu" data-chapter="The Schooling" data-page="03">
+      <div class="edu-head">
+        <h2 class="panel-title">Where I <em>studied</em>.</h2>
+      </div>
+
+      <div class="edu-deck edu-deck-single">
+        <article class="edu-card edu-card-feature">
+          <div class="edu-meta">
+            <span class="edu-year">August 2020 — June 2024</span>
+            <span class="edu-degree">B.Tech</span>
+          </div>
+          <h3>Computer Science &amp; Engineering</h3>
+          <p class="edu-school">National Institute of Technology · Jalandhar, Punjab</p>
+
+          <div class="edu-stat-row">
+            <div class="edu-stat">
+              <span class="edu-stat-num">8.1<span class="edu-stat-unit">/10</span></span>
+              <span class="edu-stat-lbl">CGPA</span>
+            </div>
+            <div class="edu-stat">
+              <span class="edu-stat-num">4<span class="edu-stat-unit">yr</span></span>
+              <span class="edu-stat-lbl">degree</span>
+            </div>
+            <div class="edu-stat">
+              <span class="edu-stat-num">2024</span>
+              <span class="edu-stat-lbl">graduated</span>
+            </div>
+          </div>
+
+          <p class="edu-desc">
+            Four-year B.Tech in Computer Science and Engineering at NIT Jalandhar
+            — coursework spanning data structures, algorithms, DBMS, operating
+            systems, and software engineering, with a strong focus on hands-on
+            project work.
+          </p>
+
+          <div class="edu-tags">
+            <span>DSA</span><span>OOP</span><span>DBMS</span><span>Operating Systems</span><span>Software Engineering</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========  PANEL 04 · EXPERIENCE  ========= -->
+    <section class="panel panel-exp" data-chapter="The Work" data-page="04">
+      <div class="exp-head">
+        <h2 class="panel-title">Things I've <em>shipped</em>.</h2>
+      </div>
+
+      <!-- Timeline ribbon -->
+      <div class="exp-timeline">
+        <div class="exp-thread"></div>
+        <button type="button" class="exp-tick exp-tick-1" data-target="expCardAsc" aria-label="Jump to Associate Software Engineer, Jan to Jul 2024">
+          <span class="exp-tick-role">Associate SWE</span>
+          <span class="exp-tick-dot"></span>
+          <span class="exp-tick-date">Jan — Jul 2024</span>
+        </button>
+        <button type="button" class="exp-tick exp-tick-2" data-target="expCardCurrent" aria-label="Jump to Software Engineer 1 → 2, Jul 2024 to present">
+          <span class="exp-tick-role">SWE 1 <span class="arr">→</span> SWE 2</span>
+          <span class="exp-tick-dot"></span>
+          <span class="exp-tick-date">Jul 2024 — Present</span>
+        </button>
+      </div>
+
+      <div class="exp-rail" id="expRail">
+        <article class="exp-card exp-card-current" id="expCardCurrent">
+          <div class="exp-card-head">
+            <div class="exp-card-meta">
+              <span class="exp-period">
+                <span class="exp-period-dot"></span>
+                Jul 2024 — Present
+              </span>
+              <span class="exp-tag">Current</span>
+            </div>
+            <h3>Software Engineer 1 <span class="exp-arrow">→</span> Software Engineer 2</h3>
+            <span class="exp-company">MAQ Software</span>
+          </div>
+
+          <div class="exp-metrics">
+            <div class="metric">
+              <span class="metric-num">87.5<span class="metric-unit">%</span></span>
+              <span class="metric-lbl">faster<br/>report load</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num">5.6<span class="metric-arrow">→</span>3.6<span class="metric-unit">GB</span></span>
+              <span class="metric-lbl">dataset<br/>pruning</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num">~2<span class="metric-unit">min</span></span>
+              <span class="metric-lbl">avg ticket<br/>response</span>
+            </div>
+          </div>
+
+          <p>
+            Building enterprise data &amp; AI workflows across Power BI, Synapse,
+            and Microsoft Fabric — from intelligent ticket triage to multi-GB
+            semantic model optimization.
+          </p>
+          <ul>
+            <li>Designed an Azure Logic App that ingests customer emails, classifies intent with <em>Azure OpenAI</em>, auto-creates DevOps work items &amp; sends acknowledgments — <em>24×7</em> coverage.</li>
+            <li>Tuned a multi-filter Power BI semantic model via DAX optimization, dynamic relationships &amp; backend aggregations.</li>
+            <li>Reduced an import-mode dataset via column pruning, type optimization &amp; relationship simplification — under <em>10s</em> page load.</li>
+            <li>Built scalable multi-level <em>PySpark</em> processing — <em>100% SLA</em> compliance on ad-hoc requests.</li>
+            <li>Implemented Row-Level Security across multiple Power BI reports.</li>
+            <li>Contributed to enterprise migration <em>Azure Synapse → Microsoft Fabric</em>.</li>
+          </ul>
+          <div class="exp-stack"><span>PySpark</span><span>SQL</span><span>Synapse</span><span>Fabric</span><span>Power BI</span><span>DAX</span><span>Logic Apps</span><span>Azure OpenAI</span><span>Azure DevOps</span><span>ADLS</span><span>Tabular Editor</span></div>
+        </article>
+
+        <article class="exp-card" id="expCardAsc">
+          <div class="exp-card-head">
+            <div class="exp-card-meta">
+              <span class="exp-period">
+                <span class="exp-period-dot exp-period-dot-2"></span>
+                Jan 2024 — Jul 2024
+              </span>
+            </div>
+            <h3>Associate Software Engineer</h3>
+            <span class="exp-company">MAQ Software</span>
+          </div>
+
+          <div class="exp-metrics">
+            <div class="metric">
+              <span class="metric-num">~90<span class="metric-unit">%</span></span>
+              <span class="metric-lbl">forecast<br/>speed-up</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num">2h<span class="metric-arrow">→</span>10<span class="metric-unit">min</span></span>
+              <span class="metric-lbl">processing<br/>time</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num">60<span class="metric-unit">+</span></span>
+              <span class="metric-lbl">finance<br/>reports</span>
+            </div>
+          </div>
+
+          <p>
+            Rebuilt finance reporting from spreadsheets into a parameter-driven,
+            cloud-native system on Azure Synapse — faster forecasting with higher
+            accuracy &amp; consistency.
+          </p>
+          <ul>
+            <li>Rebuilt <em>9</em> scalable finance models in Excel with VLOOKUP / XLOOKUP and formula-driven logic, expanded into <em>60+</em> reports for financial analysis.</li>
+            <li>Replaced manual Excel forecasting with a parameter-driven Azure Synapse system — processing time <em>2 h → 10 min</em>.</li>
+            <li>Improved forecast accuracy &amp; consistency through automated, versioned model logic.</li>
+          </ul>
+          <div class="exp-stack"><span>Azure Synapse</span><span>SQL</span><span>Excel</span><span>MDX</span></div>
+        </article>
+      </div>
+
+      <div class="exp-scroll-hint" aria-hidden="true">scroll for more</div>
+    </section>
+
+    <!-- =========  PANEL 05 · HOBBIES  ========= -->
+    <section class="panel panel-hobbies" data-chapter="The Side Quests" data-page="05">
+      <div class="hobby-head">
+        <h2 class="panel-title">When I'm <em>not</em> at the keyboard.</h2>
+      </div>
+
+      <div class="hobby-collage hobby-collage-3">
+        <article class="hobby h1">
+          <div class="hobby-img"><img src="assets/images/travelling.jpg" alt="Travelling — misty mountains" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=900&auto=format&fit=crop'" /></div>
+          <div class="hobby-info">
+            <span class="hobby-num">01</span>
+            <h3>Travelling</h3>
+            <p>Wandering hills, fog, and slow trains.</p>
+          </div>
+        </article>
+
+        <article class="hobby h2">
+          <div class="hobby-img"><img src="assets/images/listening.jpg" alt="Listening to music — vinyl &amp; lamplight" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=900&auto=format&fit=crop'" /></div>
+          <div class="hobby-info">
+            <span class="hobby-num">02</span>
+            <h3>Listening Music</h3>
+            <p>Lo-fi nights &amp; long-form playlists.</p>
+          </div>
+        </article>
+
+        <article class="hobby h3">
+          <div class="hobby-img"><img src="assets/images/singing.jpg" alt="Singing — soft-lit microphone" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1485579149621-3123dd979885?w=900&auto=format&fit=crop'" /></div>
+          <div class="hobby-info">
+            <span class="hobby-num">03</span>
+            <h3>Singing</h3>
+            <p>Quiet covers when the room is still.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========  PANEL 06 · CONTACT  ========= -->
+    <section class="panel panel-contact" data-chapter="The End — &amp; Hello" data-page="06">
+      <div class="contact-grid">
+        <h2 class="contact-title">Got a <em>data</em> problem<br/>worth solving?</h2>
+        <p class="contact-lede">
+          Whether it's a tangled data swamp, a Power BI semantic model fighting
+          back, or just music recommendations — my inbox is open.
+        </p>
+
+        <a href="mailto:rinkuahirwar06022002@gmail.com" class="contact-cta">
+          <span class="cta-line">say</span>
+          <span class="cta-line italic">hello.</span>
+          <span class="cta-arrow">↗</span>
+        </a>
+
+        <div class="contact-links">
+          <a href="https://github.com/RinkuAhirwar">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/rinkuahirwar">LinkedIn ↗</a>
+          <a href="https://docs.google.com/document/d/1sfCjSsX5csKAGKkcnS7zqAp_PbwCVBbKvLHziKy9aJ4/edit?usp=sharing">Resume ↗</a>
+          <a href="mailto:rinkuahirwar06022002@gmail.com">Email ↗</a>
+        </div>
+
+        <div class="colophon">
+          <span>© 2026 · Rinku Ahirwar</span>
+          <span>· Co-written with AI</span>
+        </div>
+
+        <div class="visitor-chip" id="visitorChip" aria-live="polite" title="Lifetime page views">
+          <span class="visitor-pulse" aria-hidden="true"></span>
+          <span class="visitor-label">Read by</span>
+          <span class="visitor-count" id="visitorCount">—</span>
+          <span class="visitor-tail">curious humans</span>
+        </div>
+      </div>
+
+      <div class="contact-orbit">
+        <div class="big-circle"></div>
+        <div class="big-circle big-circle-2"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====  Bottom Dock + Progress  ===== -->
+  <div class="frame-bottom">
+    <button class="nav-arrow" id="prevBtn" aria-label="Previous panel" type="button">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <nav class="dock" id="dock" aria-label="Page navigation">
+      <a href="#" data-target="0" class="dock-item active" data-label="Cover">
+        <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a2 2 0 0 1-2 2h-4v-7h-6v7H5a2 2 0 0 1-2-2V11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#" data-target="1" class="dock-item" data-label="About">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </a>
+      <a href="#" data-target="2" class="dock-item" data-label="Education">
+        <svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17 5 13.18z" fill="currentColor"/></svg>
+      </a>
+      <a href="#" data-target="3" class="dock-item" data-label="Experience">
+        <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </a>
+      <a href="#" data-target="4" class="dock-item" data-label="Hobbies">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.65-7 10-7 10h-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#" data-target="5" class="dock-item" data-label="Contact">
+        <svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </a>
+    </nav>
+
+    <button class="nav-arrow" id="nextBtn" aria-label="Next panel" type="button">
+      <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <script src="script.js"></script>
+</body>
 </html>
