@@ -1,7 +1,7 @@
 name: Repository Inspection
 
 on:
-  workflow_dispatch:
+  push:
 
 permissions:
   contents: read
