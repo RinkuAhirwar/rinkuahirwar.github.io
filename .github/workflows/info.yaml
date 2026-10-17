@@ -23,8 +23,8 @@ jobs:
           pwd
           echo "Repository: $GITHUB_REPOSITORY"
           echo "Workspace: $GITHUB_WORKSPACE"
-          echo "secret": $secrets.HI
-          echo "variable": $vars.cool
+          echo "secret": ${{secrets.HI}}
+          echo "variable": ${{vars.cool}}
 
       # Step 3: List top-level files and folders
       - name: List root directory
