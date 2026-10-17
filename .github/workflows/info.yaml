@@ -1,0 +1,138 @@
+name: System Information Report
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  system-info:
+    name: Collect Machine Information
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Basic System Information
+        shell: bash
+        run: |
+          echo "===================================="
+          echo "       SYSTEM INFORMATION"
+          echo "===================================="
+
+          echo ""
+          echo "---- MACHINE IDENTITY ----"
+          echo "Hostname: $(hostname)"
+          echo "FQDN: $(hostname -f 2>/dev/null || hostname)"
+          echo "User: $(whoami)"
+          echo "Working Directory: $(pwd)"
+          echo "Runner Name: $RUNNER_NAME"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Runner Architecture: $RUNNER_ARCH"
+          echo "GitHub Repository: $GITHUB_REPOSITORY"
+          echo "Workflow: $GITHUB_WORKFLOW"
+          echo "Run ID: $GITHUB_RUN_ID"
+
+          echo ""
+          echo "---- OPERATING SYSTEM ----"
+          cat /etc/os-release
+          echo ""
+          uname -a
+          echo "Kernel: $(uname -r)"
+          echo "Architecture: $(uname -m)"
+
+          echo ""
+          echo "---- CPU INFORMATION ----"
+          lscpu
+          echo "Logical CPU Count: $(nproc)"
+
+          echo ""
+          echo "---- MEMORY INFORMATION ----"
+          free -h
+
+          echo ""
+          echo "---- DISK INFORMATION ----"
+          df -h
+
+          echo ""
+          echo "---- TIME AND TIMEZONE ----"
+          date
+          date -u
+          timedatectl 2>/dev/null || true
+
+      - name: Network Information
+        shell: bash
+        run: |
+          echo "===================================="
+          echo "       NETWORK INFORMATION"
+          echo "===================================="
+
+          echo ""
+          echo "---- NETWORK INTERFACES ----"
+          ip -brief address
+
+          echo ""
+          echo "---- IP ADDRESSES ----"
+          ip address
+
+          echo ""
+          echo "---- ROUTING TABLE ----"
+          ip route
+
+          echo ""
+          echo "---- DNS CONFIGURATION ----"
+          cat /etc/resolv.conf
+
+          echo ""
+          echo "---- NETWORK CONNECTION TEST ----"
+          if curl -Is --max-time 10 https://github.com >/dev/null; then
+            echo "GitHub HTTPS: Reachable"
+          else
+            echo "GitHub HTTPS: Not reachable"
+          fi
+
+      - name: Public IP and Approximate Region
+        shell: bash
+        run: |
+          echo "===================================="
+          echo "       PUBLIC IP / REGION"
+          echo "===================================="
+
+          echo ""
+          echo "Querying ipinfo.io for public IP geolocation..."
+          if curl -fsS --max-time 10 \
+            https://ipinfo.io/json; then
+            echo ""
+          else
+            echo "Geolocation lookup unavailable."
+          fi
+
+      - name: Runtime and Tool Information
+        shell: bash
+        run: |
+          echo "===================================="
+          echo "       INSTALLED TOOLS"
+          echo "===================================="
+
+          for tool in git python3 node npm java docker curl wget; do
+            if command -v "$tool" >/dev/null 2>&1; then
+              echo "$tool: $(command -v "$tool")"
+            else
+              echo "$tool: Not installed"
+            fi
+          done
+
+          echo ""
+          echo "---- GIT VERSION ----"
+          git --version
+
+          echo ""
+          echo "---- PYTHON VERSION ----"
+          python3 --version 2>/dev/null || true
+
+          echo ""
+          echo "---- NODE VERSION ----"
+          node --version 2>/dev/null || true
+
+          echo ""
+          echo "---- JAVA VERSION ----"
+          java -version 2>&1 || true
