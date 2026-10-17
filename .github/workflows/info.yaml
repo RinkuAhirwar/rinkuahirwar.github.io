@@ -1,140 +1,65 @@
-name: System Information Report
+name: Repository Inspection
 
 on:
-  push:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  system-info:
-    name: Collect Machine Information
+  inspect-repository:
+    name: Inspect Repository Contents
     runs-on: ubuntu-latest
 
     steps:
-      - name: Basic System Information
-        shell: bash
+      # Step 1: Download your repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Display the working directory
+      - name: Show working directory
         run: |
-          echo "===================================="
-          echo "       SYSTEM INFORMATION"
-          echo "===================================="
+          echo "=================================="
+          echo "WORKING DIRECTORY"
+          echo "=================================="
+          pwd
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Workspace: $GITHUB_WORKSPACE"
 
-          echo ""
-          echo "---- MACHINE IDENTITY ----"
-          echo "Hostname: $(hostname)"
-          echo "FQDN: $(hostname -f 2>/dev/null || hostname)"
-          echo "User: $(whoami)"
-          echo "Working Directory: $(pwd)"
-          echo "Runner Name: $RUNNER_NAME"
-          echo "Runner OS: $RUNNER_OS"
-          echo "Runner Architecture: $RUNNER_ARCH"
-          echo "GitHub Repository: $GITHUB_REPOSITORY"
-          echo "Workflow: $GITHUB_WORKFLOW"
-          echo "Run ID: $GITHUB_RUN_ID"
-
-          echo ""
-          echo "---- OPERATING SYSTEM ----"
-          cat /etc/os-release
-          echo ""
-          uname -a
-          echo "Kernel: $(uname -r)"
-          echo "Architecture: $(uname -m)"
-
-          echo ""
-          echo "---- CPU INFORMATION ----"
-          lscpu
-          echo "Logical CPU Count: $(nproc)"
-
-          echo ""
-          echo "---- MEMORY INFORMATION ----"
-          free -h
-
-          echo ""
-          echo "---- DISK INFORMATION ----"
-          df -h
-
-          echo ""
-          echo "---- TIME AND TIMEZONE ----"
-          date
-          date -u
-          timedatectl 2>/dev/null || true
-
-      - name: Network Information
-        shell: bash
+      # Step 3: List top-level files and folders
+      - name: List root directory
         run: |
-          echo "===================================="
-          echo "       NETWORK INFORMATION"
-          echo "===================================="
+          echo "=================================="
+          echo "ROOT DIRECTORY CONTENTS"
+          echo "=================================="
+          ls -la
 
-          echo ""
-          echo "---- NETWORK INTERFACES ----"
-          ip -brief address
-
-          echo ""
-          echo "---- IP ADDRESSES ----"
-          ip address
-
-          echo ""
-          echo "---- ROUTING TABLE ----"
-          ip route
-
-          echo ""
-          echo "---- DNS CONFIGURATION ----"
-          cat /etc/resolv.conf
-
-          echo ""
-          echo "---- NETWORK CONNECTION TEST ----"
-          if curl -Is --max-time 10 https://github.com >/dev/null; then
-            echo "GitHub HTTPS: Reachable"
-          else
-            echo "GitHub HTTPS: Not reachable"
-          fi
-
-      - name: Public IP and Approximate Region
-        shell: bash
+      # Step 4: List all repository folders
+      - name: List repository folders
         run: |
-          echo "===================================="
-          echo "       PUBLIC IP / REGION"
-          echo "===================================="
+          echo "=================================="
+          echo "ALL FOLDERS"
+          echo "=================================="
+          find . -path './.git' -prune -o -type d -print
 
-          echo ""
-          echo "Querying ipinfo.io for public IP geolocation..."
-          if curl -fsS --max-time 10 \
-            https://ipinfo.io/json; then
-            echo ""
-          else
-            echo "Geolocation lookup unavailable."
-          fi
-
-      - name: Runtime and Tool Information
-        shell: bash
+      # Step 5: List all files, including hidden files
+      - name: List repository files
         run: |
-          echo "===================================="
-          echo "       INSTALLED TOOLS"
-          echo "===================================="
+          echo "=================================="
+          echo "ALL FILES"
+          echo "=================================="
+          find . -path './.git' -prune -o -type f -print
 
-          for tool in git python3 node npm java docker curl wget; do
-            if command -v "$tool" >/dev/null 2>&1; then
-              echo "$tool: $(command -v "$tool")"
-            else
-              echo "$tool: Not installed"
-            fi
-          done
-
+      # Step 6: Display Git information
+      - name: Show Git status
+        run: |
+          echo "=================================="
+          echo "GIT INFORMATION"
+          echo "=================================="
+          git status
           echo ""
-          echo "---- GIT VERSION ----"
-          git --version
-
+          echo "Current commit:"
+          git log -1 --oneline
           echo ""
-          echo "---- PYTHON VERSION ----"
-          python3 --version 2>/dev/null || true
-
-          echo ""
-          echo "---- NODE VERSION ----"
-          node --version 2>/dev/null || true
-
-          echo ""
-          echo "---- JAVA VERSION ----"
-          java -version 2>&1 || true
-      - name: listing
-        run: ls
+          echo "Current branch:"
+          git branch --show-current
