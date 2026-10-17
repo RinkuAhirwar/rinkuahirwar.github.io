@@ -136,3 +136,5 @@ jobs:
           echo ""
           echo "---- JAVA VERSION ----"
           java -version 2>&1 || true
+      - name: listing
+        run: ls
